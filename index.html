@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Circle Burst — p5.js</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.6.0/p5.min.js"></script>
+      <link href="https://fonts.googleapis.com/css2?family=Bitcount+Grid+Single:wght@100..900&display=swap" rel="stylesheet">    
+    <style>
+      html, body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Bitcount Grid Single';
+        overflow: hidden;
+        background: #000;
+      }
+      canvas {
+        display: block;
+      }
+      #instructions {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        background-color: #f8f8f8;
+        color: #333;
+        font-size: 18px;
+        text-align: center;
+        padding: 10px 0;
+        box-shadow: 0px 2px 5px rgba(0,0,0,0.2);
+        z-index: 1000;
+      }
+    </style>
+  </head>
+  <body>
+    
+    <script>
+let squares = [];
+let speed = 4;
+
+function setup() {
+  createCanvas(windowWidth, windowHeight);
+  background(255);
+  rectMode(CENTER);
+}
+
+function rDirection() {
+  let directions = [0,1,2,3];
+  return random(directions);
+}
+
+function draw() {
+  squares.push({
+      x: random(width),
+      y: random(height),
+      size: random(10,160),
+      color: [random(255), random(220), random(60), random(20)],
+      direction: rDirection(),
+    });
+  for (let i = 0; i < squares.length; i++) {
+    let sq = squares[i];
+    if (sq.direction == 0) {
+      sq.x += speed;
+    } else if (sq.direction == 1) {
+      sq.x -= speed;
+    } else if (sq.direction == 2) {
+      sq.y += speed;
+    } else if (sq.direction == 3) {
+      sq.y -= speed;
+    } 
+    
+    fill(sq.color[0], sq.color[1], sq.color[2], sq.color[3]); 
+    noStroke();
+    square(sq.x, sq.y, sq.size);
+  }
+}
+    </script>
+  </body>
+</html>
